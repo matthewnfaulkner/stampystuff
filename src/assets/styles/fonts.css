@@ -13,3 +13,12 @@
   src: url("../fonts/InterVariable-Italic.woff2") format("woff2");
   font-display: swap;
 }
+
+
+@font-face {
+  font-weight: 100 900;
+  font-family: TarzanaWideBold;
+  font-style: bold;
+  src: url("../fonts/TarzanaWideBold.otf") format("opentype");
+  font-display: swap;
+}

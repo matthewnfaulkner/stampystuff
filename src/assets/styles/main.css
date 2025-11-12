@@ -1,3 +1,24 @@
 html {
   @apply antialiased min-h-full;
 }
+
+:root {
+  --color-primary: #977bbe; /* blue */
+  --color-secondary: #9333ea; /* purple */
+  --color-background: #fff;
+  --color-text: #bbf;
+}
+
+[data-theme="light"] {
+  --color-primary: #f7cddf; /* blue */
+  --color-secondary: #9333ea; /* purple */
+  --color-background: #fff;
+  --color-text: #d5580ae4;
+}
+
+[data-theme="dark"] {
+  --color-primary: #2563eb;
+  --color-secondary: #7e22ce;
+  --color-background: #111827;
+  --color-text: #fd0;
+}
