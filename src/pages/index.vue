@@ -54,10 +54,12 @@ const { currentTheme, switchTheme } = useTheme();
     <h1 class="dark:text-primary text-primary pb-20 text-center text-6xl transition-colors ">
       Stampy Stuff
     </h1>
+    <h1 class="dark:text-primary text-primary pb-20 text-center text-4xl transition-colors ">
+      Coming Soon
+    </h1>
 
     <div class="flex justify-center space-x-4 pb-10" />
   </main>
-
 </template>
 
 <style>

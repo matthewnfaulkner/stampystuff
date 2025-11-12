@@ -13,7 +13,7 @@ html {
   --color-primary: #f7cddf; /* blue */
   --color-secondary: #9333ea; /* purple */
   --color-background: #fff;
-  --color-text: #d5580ae4;
+  --color-text: #0b6b3ce4;
 }
 
 [data-theme="dark"] {
