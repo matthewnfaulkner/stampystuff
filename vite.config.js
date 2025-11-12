@@ -30,6 +30,9 @@ export default ({ mode }) => {
         ],
       }),
     ],
+    optimizeDeps: {
+      include: ['primevue/colorpicker'],
+    },
     resolve: {
       alias: {
         '@': resolve(__dirname, 'src'),

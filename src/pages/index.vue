@@ -1,5 +1,28 @@
 <script setup>
+import { ref } from 'vue';
+// eslint-disable-next-line import/extensions
+import ColorPicker from 'primevue/colorpicker';
+
 const { currentTheme, switchTheme } = useTheme();
+
+const primaryColor = ref(getComputedStyle(document.documentElement).getPropertyValue('--color-primary').trim() || '#007ad9');
+const textColor = ref(getComputedStyle(document.documentElement).getPropertyValue('--color-text').trim() || '#000000');
+
+const updatePrimaryColor = () => {
+  const value = primaryColor.value.startsWith('#') ? primaryColor.value : `#${primaryColor.value}`;
+  document.documentElement.style.setProperty('--color-primary', value);
+};
+
+const updateTextColor = () => {
+  const value = textColor.value.startsWith('#') ? textColor.value : `#${textColor.value}`;
+  document.documentElement.style.setProperty('--color-text', value);
+};
+
+// Initialize CSS variables on mount
+// onMounted(() => {
+// updatePrimaryColor();
+// updateTextColor();
+// });
 </script>
 
 <template>
@@ -47,6 +70,19 @@ const { currentTheme, switchTheme } = useTheme();
           </svg>
         </transition>
       </button>
+      <div class="color-picker-container">
+        <h3>Primary Color</h3>
+        <ColorPicker
+          v-model="primaryColor"
+          @change="updatePrimaryColor"
+        />
+
+        <h3>Text Color</h3>
+        <ColorPicker
+          v-model="textColor"
+          @change="updateTextColor"
+        />
+      </div>
     </div>
   </header>
 
@@ -63,6 +99,19 @@ const { currentTheme, switchTheme } = useTheme();
 </template>
 
 <style>
+
+.color-picker-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-width: 250px;
+  margin: 2rem;
+}
+
+.p-colorpicker-preview{
+  border: black solid!important
+}
+
 body {
   @apply dark:bg-primary dark:text-primary;
   @apply bg-primary text-primary;
