@@ -59,7 +59,7 @@ function applyColors() {
   const stroke = textColor.value.startsWith('#') ? strokeColor.value : `#${strokeColor.value}`;
   document.documentElement.style.setProperty('--color-primary', primary);
   document.documentElement.style.setProperty('--color-text', text);
-  document.documentElement.style.setProperty('--color-text', stroke);
+  document.documentElement.style.setProperty('--color-stroke', stroke);
 }
 
 // Delete a theme
