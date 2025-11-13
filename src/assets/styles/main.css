@@ -12,10 +12,10 @@ html {
 }
 
 [data-theme="light"] {
-  --color-primary: #f7cddf; /* blue */
+  --color-primary: #fd0; /* blue */
   --color-secondary: #9333ea; /* purple */
   --color-background: #fff;
-  --color-text: #0b6b3ce4;
+  --color-text: #008f68;
   --color-stroke: #000;
 }
 
