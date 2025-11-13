@@ -22,3 +22,19 @@
   src: url("../fonts/TarzanaWideBold.otf") format("opentype");
   font-display: swap;
 }
+
+@font-face {
+  font-weight: 100 900;
+  font-family: Unkempt;
+  font-style: bold;
+  src: url("../fonts/Unkempt-Bold.ttf") format("truetype");
+  font-display: swap;
+}
+
+@font-face {
+  font-weight: 400;
+  font-family: Unkempt;
+  font-style: normal;
+  src: url("../fonts/Unkempt-Regular.ttf") format("truetype");
+  font-display: swap;
+}

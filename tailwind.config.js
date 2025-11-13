@@ -10,7 +10,7 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['TarzanaWideBold', 'InterVariable', ...defaultTheme.fontFamily.sans],
+        sans: ['Unkempt', 'TarzanaWideBold', 'InterVariable', ...defaultTheme.fontFamily.sans],
       },
     },
   },

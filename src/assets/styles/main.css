@@ -20,9 +20,9 @@ html {
 }
 
 [data-theme="dark"] {
-  --color-primary: #2563eb;
+  --color-primary: #fd0;
   --color-secondary: #7e22ce;
   --color-background: #111827;
-  --color-text: #fd0;
+  --color-text: #008f68;
   --color-stroke: #fff;
 }
