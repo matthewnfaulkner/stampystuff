@@ -10,17 +10,70 @@ const textColor = ref(getComputedStyle(document.documentElement).getPropertyValu
 const strokeColor = ref(getComputedStyle(document.documentElement).getPropertyValue('--color-stroke').trim() || '#000000');
 let strokeToggle = false;
 
+// user-defined theme name
+const themeName = ref('');
+
+// object of saved themes
+const savedThemes = reactive({});
+
+// helper — ensures '#' prefix
+function ensureHash(color) {
+  return color.startsWith('#') ? color : `#${color}`;
+}
+
+// Save a theme
+function saveTheme() {
+  const name = themeName.value.trim();
+  if (!name) return;
+  savedThemes[name] = {
+    primary: ensureHash(primaryColor.value),
+    text: ensureHash(textColor.value),
+  };
+  localStorage.setItem('savedThemes', JSON.stringify(savedThemes));
+  localStorage.setItem('lastTheme', name);
+  themeName.value = '';
+}
+
 const updatePrimaryColor = () => {
   const value = primaryColor.value.startsWith('#') ? primaryColor.value : `#${primaryColor.value}`;
   document.documentElement.style.setProperty('--color-primary', value);
-  document.getElementById('bgcolorhex').innerHTML = value;
+  document.getElementById('bgcolorhex').value = value;
+};
+
+const updateTextColor = () => {
+  const value = textColor.value.startsWith('#') ? textColor.value : `#${textColor.value}`;
+  document.documentElement.style.setProperty('--color-text', value);
+  document.getElementById('textcolorhex').value = value;
 };
 
 const updateStrokeColor = () => {
   const value = strokeColor.value.startsWith('#') ? strokeColor.value : `#${strokeColor.value}`;
   document.documentElement.style.setProperty('--color-stroke', value);
-  document.getElementById('textcolorhex').innerHTML = value;
+  document.getElementById('strokecolorhex').value = value;
 };
+
+function applyColors() {
+  const primary = primaryColor.value.startsWith('#') ? primaryColor.value : `#${primaryColor.value}`;
+  const text = textColor.value.startsWith('#') ? textColor.value : `#${textColor.value}`;
+  document.documentElement.style.setProperty('--color-primary', primary);
+  document.documentElement.style.setProperty('--color-text', text);
+}
+
+// Delete a theme
+function deleteTheme(name) {
+  delete savedThemes[name];
+  localStorage.setItem('savedThemes', JSON.stringify(savedThemes));
+}
+
+// Load a theme by name
+function loadTheme(name) {
+  const theme = savedThemes[name];
+  if (!theme) return;
+  primaryColor.value = theme.primary;
+  textColor.value = theme.text;
+  applyColors();
+  localStorage.setItem('lastTheme', name);
+}
 
 const updateStrokeToggle = () => {
   if (!strokeToggle) {
@@ -30,43 +83,85 @@ const updateStrokeToggle = () => {
   }
   strokeToggle = !strokeToggle;
 };
-
-const updateTextColor = () => {
-  const value = textColor.value.startsWith('#') ? textColor.value : `#${textColor.value}`;
-  document.documentElement.style.setProperty('--color-text', value);
-  document.getElementById('strokecolorhex').innerHTML = value;
-};
-
 // Initialize CSS variables on mount
-// onMounted(() => {
+onMounted(() => {
 // updatePrimaryColor();
 // updateTextColor();
-// });
+  const stored = localStorage.getItem('savedThemes');
+  if (stored) Object.assign(savedThemes, JSON.parse(stored));
+});
 </script>
 
 <template>
   <header class="absolute inset-x-0 top-0">
     <div class="container mx-auto flex justify-between p-1">
       <div class="color-picker-container">
-        <h3>BG Color: <span id="bgcolorhex" /></h3>
-        <ColorPicker
-          v-model="primaryColor"
-          @change="updatePrimaryColor"
-        />
+        <div>
+          <h3>
+            BG Color:
+            <ColorPicker
+              v-model="primaryColor"
+              @change="updatePrimaryColor"
+            />
+          </h3>
+          <input
+            id="bgcolorhex"
+            v-model="primaryColor"
+            type="text"
+            class="colorinput"
+            @change="updatePrimaryColor"
+          >
+        </div>
 
-        <h3>Text Color: <span id="textcolorhex" /></h3>
-        <ColorPicker
-          v-model="textColor"
-          @change="updateTextColor"
-        />
-
-        <h3>Stroke Color: <span id="strokecolorhex" /></h3>
-        <ColorPicker
-          v-model="strokeColor"
-          @change="updateStrokeColor"
-        />
+        <div>
+          <h3>
+            Text Color:
+            <ColorPicker
+              v-model="textColor"
+              @change="updateTextColor"
+            />
+          </h3>
+          <input
+            id="textcolorhex"
+            v-model="textColor"
+            type="text"
+            class="colorinput"
+            @change="updateTextColor"
+          >
+        </div>
+        <div>
+          <h3>
+            Stroke Color:
+            <ColorPicker
+              v-model="strokeColor"
+              @change="updateStrokeColor"
+            />
+          </h3>
+          <input
+            id="strokecolorhex"
+            v-model="strokeColor"
+            type="text"
+            class="colorinput"
+            @change="updateStrokeColor"
+          >
+        </div>
         <input type="checkbox" id="myCheckbox" v-model="isChecked" @change="updateStrokeToggle">
         <label for="myCheckbox">Toggle Stroke</label>
+        <input
+          v-model="themeName"
+          placeholder="Theme name"
+          class="border p-1 rounded colorinput"
+        >
+        <button @click="saveTheme" :disabled="!themeName" class="px-4 py-2 bg-gray-900 text-white rounded">Save Theme</button>
+        <select v-model="selectedTheme" @change="loadTheme(selectedTheme)" class="colorinput">
+          <option disabled value="">Select a theme</option>
+          <option v-for="(theme, name) in savedThemes" :key="name" :value="name">
+            {{ name }}
+          </option>
+        </select>
+        <button @click="deleteTheme(selectedTheme)" :disabled="!selectedTheme">
+          🗑️ Delete Selected Theme
+        </button>
       </div>
     </div>
   </header>
@@ -132,12 +227,19 @@ const updateTextColor = () => {
   display: flex;
   flex-direction: row !important;
   flex-direction: column;
+  flex-wrap: wrap;
   gap: 1rem;
+  max-width: 100%;
   margin: .5rem;
 }
 
 .p-colorpicker-preview{
   border: black solid!important
+}
+
+.colorinput{
+  background-color: transparent!important;
+  border: var(--color-background) solid;
 }
 
 body {
