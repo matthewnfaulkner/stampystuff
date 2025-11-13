@@ -182,9 +182,11 @@ onMounted(() => {
     </div>
   </header>
 
-  <main class="mx-auto flex h-screen max-w-3xl flex-col items-center justify-center px-4 py-16">
+  <main class="mx-auto flex h-screen max-w-3xl flex-col items-center justify-center px-4 py-16" style="max-width:100vw; overflow: hidden;">
     <img src="../assets/img/logo.png" alt="Stampy Stuff" class="w-60 md:w-80 lg:w-70"/>
-    <img src="../assets/img/nickymaguire.png" alt="Stampy Stuff" width="600px" style="max-width: 150%; top:15%; position: absolute;"/>
+    <div style="position: absolute; top:15%; max-width: 150%;">
+      <img src="../assets/img/nickymaguire.png" alt="Stampy Stuff" width="700px" />
+    </div>
     <h1 class="dark:text-primary text-primary pb-20 text-center text-4xl transition-colors ">
       Coming Soon
     </h1>
@@ -239,6 +241,7 @@ onMounted(() => {
 <style>
 
 .color-picker-container {
+  z-index: 10;
   display: flex;
   flex-direction: row !important;
   flex-direction: column;
