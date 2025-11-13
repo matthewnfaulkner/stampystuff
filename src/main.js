@@ -12,7 +12,7 @@ import App from '@/app.vue';
 import { routes } from '@/routes.js';
 
 const router = createRouter({
-  history: createWebhashHistory(),
+  history: createWebHashHistory(),
   routes,
 });
 
