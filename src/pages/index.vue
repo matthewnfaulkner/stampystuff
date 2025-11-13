@@ -4,7 +4,7 @@ import { ref } from 'vue';
 import ColorPicker from 'primevue/colorpicker';
 
 const { currentTheme, switchTheme } = useTheme();
-
+const isVisible = ref(true);
 const primaryColor = ref(getComputedStyle(document.documentElement).getPropertyValue('--color-primary').trim() || '#007ad9');
 const textColor = ref(getComputedStyle(document.documentElement).getPropertyValue('--color-text').trim() || '#000000');
 const strokeColor = ref(getComputedStyle(document.documentElement).getPropertyValue('--color-stroke').trim() || '#000000');
@@ -94,8 +94,14 @@ onMounted(() => {
 
 <template>
   <header class="absolute inset-x-0 top-0">
+    <button
+        @click="isVisible = !isVisible"
+        class="m-2 px-4 py-2 bg-gray-600 text-white rounded"
+      >
+        {{ isVisible ? 'Hide' : 'Show' }}
+    </button>
     <div class="container mx-auto flex justify-between p-1">
-      <div class="color-picker-container">
+      <div class="color-picker-container" v-show="isVisible">
         <div>
           <h3>
             BG Color:
@@ -160,7 +166,7 @@ onMounted(() => {
           </option>
         </select>
         <button @click="deleteTheme(selectedTheme)" :disabled="!selectedTheme">
-          🗑️ Delete Selected Theme
+          🗑️
         </button>
       </div>
     </div>
