@@ -7,6 +7,8 @@ html {
   --color-secondary: #9333ea; /* purple */
   --color-background: #fff;
   --color-text: #bbf;
+  --color-stroke: #000;
+  --stroke-width: 0px;
 }
 
 [data-theme="light"] {
@@ -14,6 +16,7 @@ html {
   --color-secondary: #9333ea; /* purple */
   --color-background: #fff;
   --color-text: #0b6b3ce4;
+  --color-stroke: #000;
 }
 
 [data-theme="dark"] {
@@ -21,4 +24,5 @@ html {
   --color-secondary: #7e22ce;
   --color-background: #111827;
   --color-text: #fd0;
+  --color-stroke: #fff;
 }

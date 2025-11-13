@@ -13,6 +13,12 @@
     background-color: var(--color-primary);
   }
 
+
+  .text-stroke {
+    -webkit-text-stroke-color: var(--color-stroke);
+    -webkit-text-stroke-width: var(--stroke-width);
+  }
+
   .text-primary {
     color: var(--color-text);
   }
