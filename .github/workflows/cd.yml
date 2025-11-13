@@ -40,6 +40,9 @@ jobs:
         env:
           VITE_BASE_PUBLIC_PATH: ${{ secrets.VITE_BASE_PUBLIC_PATH }}
         run: pnpm run build
+        
+      - name: Add CNAME
+        run: echo 'stampystuff.my' > dist/CNAME
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
