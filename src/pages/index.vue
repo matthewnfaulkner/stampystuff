@@ -28,6 +28,7 @@ function saveTheme() {
   savedThemes[name] = {
     primary: ensureHash(primaryColor.value),
     text: ensureHash(textColor.value),
+    stroke: ensureHash(strokeColor.value),
   };
   localStorage.setItem('savedThemes', JSON.stringify(savedThemes));
   localStorage.setItem('lastTheme', name);
@@ -55,8 +56,10 @@ const updateStrokeColor = () => {
 function applyColors() {
   const primary = primaryColor.value.startsWith('#') ? primaryColor.value : `#${primaryColor.value}`;
   const text = textColor.value.startsWith('#') ? textColor.value : `#${textColor.value}`;
+  const stroke = textColor.value.startsWith('#') ? strokeColor.value : `#${strokeColor.value}`;
   document.documentElement.style.setProperty('--color-primary', primary);
   document.documentElement.style.setProperty('--color-text', text);
+  document.documentElement.style.setProperty('--color-text', stroke);
 }
 
 // Delete a theme
@@ -71,6 +74,7 @@ function loadTheme(name) {
   if (!theme) return;
   primaryColor.value = theme.primary;
   textColor.value = theme.text;
+  strokeColor.value = theme.stroke;
   applyColors();
   localStorage.setItem('lastTheme', name);
 }
@@ -179,9 +183,8 @@ onMounted(() => {
   </header>
 
   <main class="mx-auto flex h-screen max-w-3xl flex-col items-center justify-center px-4 py-16">
-    <h1 class="dark:text-primary text-primary text-stroke pb-20 text-center text-6xl transition-colors ">
-      Stampy Stuff
-    </h1>
+    <img src="../assets/img/logo.png" alt="Stampy Stuff" class="w-80 md:w-80 lg:w-70"/>
+
     <h1 class="dark:text-primary text-primary pb-20 text-center text-4xl transition-colors ">
       Coming Soon
     </h1>
