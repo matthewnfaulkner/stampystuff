@@ -102,7 +102,7 @@ onMounted(() => {
     </button>
     <div class="container mx-auto flex justify-between p-1">
       <div class="color-picker-container" v-show="isVisible">
-        <div>
+        <div class="input-container">
           <h3>
             BG Color:
             <ColorPicker
@@ -119,7 +119,7 @@ onMounted(() => {
           >
         </div>
 
-        <div>
+        <div class="input-container">
           <h3>
             Text Color:
             <ColorPicker
@@ -135,7 +135,7 @@ onMounted(() => {
             @change="updateTextColor"
           >
         </div>
-        <div>
+        <div class="input-container">
           <h3>
             Stroke Color:
             <ColorPicker
@@ -151,14 +151,19 @@ onMounted(() => {
             @change="updateStrokeColor"
           >
         </div>
-        <input type="checkbox" id="myCheckbox" v-model="isChecked" @change="updateStrokeToggle">
-        <label for="myCheckbox">Toggle Stroke</label>
+        <div class="input-container">
+          <input type="checkbox" id="myCheckbox" v-model="isChecked" @change="updateStrokeToggle">
+          <label for="myCheckbox">Toggle Stroke</label>
+        </div>
+        <div class="input-container">
         <input
           v-model="themeName"
           placeholder="Theme name"
           class="border p-1 rounded colorinput"
         >
         <button @click="saveTheme" :disabled="!themeName" class="px-4 py-2 bg-gray-900 text-white rounded">Save Theme</button>
+        </div>
+        <div class="input-container">
         <select v-model="selectedTheme" @change="loadTheme(selectedTheme)" class="colorinput">
           <option disabled value="">Select a theme</option>
           <option v-for="(theme, name) in savedThemes" :key="name" :value="name">
@@ -168,6 +173,7 @@ onMounted(() => {
         <button @click="deleteTheme(selectedTheme)" :disabled="!selectedTheme">
           🗑️
         </button>
+        </div>
       </div>
     </div>
   </header>
@@ -244,8 +250,14 @@ onMounted(() => {
 }
 
 .colorinput{
+  width: 100%;
   background-color: transparent!important;
   border: var(--color-background) solid;
+
+}
+
+.input-container{
+  max-width: 35%;
 }
 
 body {
