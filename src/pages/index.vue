@@ -13,11 +13,13 @@ let strokeToggle = false;
 const updatePrimaryColor = () => {
   const value = primaryColor.value.startsWith('#') ? primaryColor.value : `#${primaryColor.value}`;
   document.documentElement.style.setProperty('--color-primary', value);
+  document.getElementById('bgcolorhex').innerHTML = value;
 };
 
 const updateStrokeColor = () => {
   const value = strokeColor.value.startsWith('#') ? strokeColor.value : `#${strokeColor.value}`;
   document.documentElement.style.setProperty('--color-stroke', value);
+  document.getElementById('textcolorhex').innerHTML = value;
 };
 
 const updateStrokeToggle = () => {
@@ -32,6 +34,7 @@ const updateStrokeToggle = () => {
 const updateTextColor = () => {
   const value = textColor.value.startsWith('#') ? textColor.value : `#${textColor.value}`;
   document.documentElement.style.setProperty('--color-text', value);
+  document.getElementById('strokecolorhex').innerHTML = value;
 };
 
 // Initialize CSS variables on mount
@@ -45,19 +48,19 @@ const updateTextColor = () => {
   <header class="absolute inset-x-0 top-0">
     <div class="container mx-auto flex justify-between p-1">
       <div class="color-picker-container">
-        <h3>Primary Color</h3>
+        <h3>BG Color: <span id="bgcolorhex" /></h3>
         <ColorPicker
           v-model="primaryColor"
           @change="updatePrimaryColor"
         />
 
-        <h3>Text Color</h3>
+        <h3>Text Color: <span id="textcolorhex" /></h3>
         <ColorPicker
           v-model="textColor"
           @change="updateTextColor"
         />
 
-        <h3>Stroke Color</h3>
+        <h3>Stroke Color: <span id="strokecolorhex" /></h3>
         <ColorPicker
           v-model="strokeColor"
           @change="updateStrokeColor"
